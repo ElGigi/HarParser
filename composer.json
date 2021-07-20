@@ -1,0 +1,25 @@
+{
+  "name": "elgigi/har-parser",
+  "description": "Library to parse HAR files",
+  "type": "library",
+  "license": "MIT",
+  "version": "1.0.0",
+  "minimum-stability": "stable",
+  "autoload": {
+    "psr-4": {
+      "ElGigi\\HarParser\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ElGigi\\HarParser\\Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "php": "^8.0",
+    "psr/http-message": "^1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.0"
+  }
+}
