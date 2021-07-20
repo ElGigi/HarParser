@@ -1,9 +1,9 @@
 # HAR Parser
 
-[![Latest Version](https://img.shields.io/packagist/v/elgigi/har-parser.svg?style=flat-square)](https://github.com/elgigi/har-parser/releases)
-[![Software license](https://img.shields.io/github/license/elgigi/har-parser.svg?style=flat-square)](https://github.com/elgigi/har-parser/blob/main/LICENSE)
-[![Build Status](https://img.shields.io/travis/com/elgigi/har-parser/main.svg?style=flat-square)](https://travis-ci.com/elgigi/har-parser)
-[![Quality Grade](https://img.shields.io/codacy/grade/0447a4290de744dc81a7e2cf9891a47d/main.svg?style=flat-square)](https://app.codacy.com/gh/elgigi/har-parser)
+[![Latest Version](https://img.shields.io/packagist/v/elgigi/har-parser.svg?style=flat-square)](https://github.com/ElGigi/HarParser/releases)
+[![Software license](https://img.shields.io/github/license/ElGigi/HarParser.svg?style=flat-square)](https://github.com/ElGigi/HarParser/blob/main/LICENSE)
+[![Build Status](https://img.shields.io/travis/com/ElGigi/HarParser/main.svg?style=flat-square)](https://travis-ci.com/ElGigi/HarParser)
+[![Quality Grade](https://img.shields.io/codacy/grade/0447a4290de744dc81a7e2cf9891a47d/main.svg?style=flat-square)](https://app.codacy.com/gh/ElGigi/HarParser)
 [![Total Downloads](https://img.shields.io/packagist/dt/elgigi/har-parser.svg?style=flat-square)](https://packagist.org/packages/elgigi/har-parser)
 
 ## Usage
