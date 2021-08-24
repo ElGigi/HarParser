@@ -40,17 +40,13 @@ class Param implements JsonSerializable
      */
     public static function load(array $data): static
     {
-        try {
-            return new static(
-                name: $data['name'] ?? throw InvalidArgumentException::missing('log.entries[].request[].postData[].params[].name'),
-                value: $data['value'] ?? null,
-                fileName: $data['fileName'] ?? null,
-                contentType: $data['contentType'] ?? null,
-                comment: $data['comment'] ?? null,
-            );
-        } catch (InvalidArgumentException $exception) {
-            throw $exception;
-        }
+        return new static(
+            name: $data['name'] ?? throw InvalidArgumentException::missing('log.entries[].request[].postData[].params[].name'),
+            value: $data['value'] ?? null,
+            fileName: $data['fileName'] ?? null,
+            contentType: $data['contentType'] ?? null,
+            comment: $data['comment'] ?? null,
+        );
     }
 
     /**

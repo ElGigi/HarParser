@@ -41,16 +41,12 @@ class PostData implements JsonSerializable
     {
         $params = array_map(fn($param) => Param::load($param), $data['params'] ?? []);
 
-        try {
-            return new static(
-                mimeType: $data['mimeType'] ?? throw InvalidArgumentException::missing('log.entries[].request[].postData[].mimeType'),
-                params: $params,
-                text: $data['text'] ?? throw InvalidArgumentException::missing('log.entries[].request[].postData[].text'),
-                comment: $data['comment'] ?? null,
-            );
-        } catch (InvalidArgumentException $exception) {
-            throw $exception;
-        }
+        return new static(
+            mimeType: $data['mimeType'] ?? throw InvalidArgumentException::missing('log.entries[].request[].postData[].mimeType'),
+            params: $params,
+            text: $data['text'] ?? throw InvalidArgumentException::missing('log.entries[].request[].postData[].text'),
+            comment: $data['comment'] ?? null,
+        );
     }
 
     /**

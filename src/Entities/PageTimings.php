@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace ElGigi\HarParser\Entities;
 
-use ElGigi\HarParser\Exception\InvalidArgumentException;
 use JsonSerializable;
 
 /**
@@ -38,8 +37,8 @@ class PageTimings implements JsonSerializable
     {
         return new static(
             onContentLoad: $data['onContentLoad'] ?? null,
-            onLoad: $data['onLoad'] ?? null,
-            comment: $data['comment'] ?? null,
+            onLoad:        $data['onLoad'] ?? null,
+            comment:       $data['comment'] ?? null,
         );
     }
 

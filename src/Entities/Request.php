@@ -55,26 +55,22 @@ class Request extends Message implements JsonSerializable
      */
     public static function load(array $data): static
     {
-        try {
-            $cookies = array_map(fn($cookie) => Cookie::load($cookie), $data['cookies'] ?? []);
-            $headers = array_map(fn($header) => Header::load($header), $data['headers'] ?? []);
-            $queryString = array_map(fn($query) => QueryString::load($query), $data['queryString'] ?? []);
+        $cookies = array_map(fn($cookie) => Cookie::load($cookie), $data['cookies'] ?? []);
+        $headers = array_map(fn($header) => Header::load($header), $data['headers'] ?? []);
+        $queryString = array_map(fn($query) => QueryString::load($query), $data['queryString'] ?? []);
 
-            return new static(
-                method: $data['method'] ?? throw InvalidArgumentException::missing('log.entries[].request.method'),
-                url: $data['url'] ?? throw InvalidArgumentException::missing('log.entries[].request.url'),
-                httpVersion: $data['httpVersion'] ?? throw InvalidArgumentException::missing('log.entries[].request.httpVersion'),
-                cookies: $cookies,
-                headers: $headers,
-                queryString: $queryString,
-                postData: isset($data['postData']) ? PostData::load($data['postData']) : null,
-                headersSize: $data['headersSize'] ?? throw InvalidArgumentException::missing('log.entries[].request.headersSize'),
-                bodySize: $data['bodySize'] ?? throw InvalidArgumentException::missing('log.entries[].request.bodySize'),
-                comment: $data['comment'] ?? null,
-            );
-        } catch (InvalidArgumentException $exception) {
-            throw $exception;
-        }
+        return new static(
+            method: $data['method'] ?? throw InvalidArgumentException::missing('log.entries[].request.method'),
+            url: $data['url'] ?? throw InvalidArgumentException::missing('log.entries[].request.url'),
+            httpVersion: $data['httpVersion'] ?? throw InvalidArgumentException::missing('log.entries[].request.httpVersion'),
+            cookies: $cookies,
+            headers: $headers,
+            queryString: $queryString,
+            postData: isset($data['postData']) ? PostData::load($data['postData']) : null,
+            headersSize: $data['headersSize'] ?? throw InvalidArgumentException::missing('log.entries[].request.headersSize'),
+            bodySize: $data['bodySize'] ?? throw InvalidArgumentException::missing('log.entries[].request.bodySize'),
+            comment: $data['comment'] ?? null,
+        );
     }
 
     /**

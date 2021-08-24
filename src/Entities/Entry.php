@@ -33,8 +33,7 @@ class Entry implements JsonSerializable
         protected ?string $serverIPAddress,
         protected ?string $connection = null,
         protected ?string $comment = null,
-    )
-    {
+    ) {
     }
 
     /**
@@ -52,10 +51,22 @@ class Entry implements JsonSerializable
 
             return new static(
                 pageref: $data['pageref'] ?? null,
-                startedDateTime: new DateTimeImmutable($data['startedDateTime'] ?? throw InvalidArgumentException::missing('log.entries[].startedDateTime')),
+                startedDateTime: new DateTimeImmutable(
+                             $data['startedDateTime'] ?? throw InvalidArgumentException::missing(
+                                 'log.entries[].startedDateTime'
+                             )
+                         ),
                 time: $data['time'] ?? throw InvalidArgumentException::missing('log.entries[].time'),
-                request: Request::load($data['request'] ?? throw InvalidArgumentException::missing('log.entries[].request')),
-                response: Response::load($data['response'] ?? throw InvalidArgumentException::missing('log.entries[].response')),
+                request: Request::load(
+                             $data['request'] ?? throw InvalidArgumentException::missing(
+                                 'log.entries[].request'
+                             )
+                         ),
+                response: Response::load(
+                             $data['response'] ?? throw InvalidArgumentException::missing(
+                                 'log.entries[].response'
+                             )
+                         ),
                 cache: $cache,
                 timings: Timings::load($data['timings'] ?? []),
                 serverIPAddress: $data['serverIPAddress'] ?? null,
@@ -154,9 +165,9 @@ class Entry implements JsonSerializable
     /**
      * Get timings.
      *
-     * @return array
+     * @return Timings
      */
-    public function getTimings(): array
+    public function getTimings(): Timings
     {
         return $this->timings;
     }

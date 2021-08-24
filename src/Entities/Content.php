@@ -41,18 +41,14 @@ class Content implements JsonSerializable
      */
     public static function load(array $data): static
     {
-        try {
-            return new static(
-                size: $data['size'] ?? throw InvalidArgumentException::missing('log.entries[].(request|response)[].size'),
-                compression: $data['compression'] ?? null,
-                mimeType: $data['mimeType'] ?? throw InvalidArgumentException::missing('log.entries[].(request|response)[].mimeType'),
-                text: $data['text'] ?? null,
-                encoding: $data['encoding'] ?? null,
-                comment: $data['comment'] ?? null,
-            );
-        } catch (InvalidArgumentException $exception) {
-            throw $exception;
-        }
+        return new static(
+            size: $data['size'] ?? throw InvalidArgumentException::missing('log.entries[].(request|response)[].size'),
+            compression: $data['compression'] ?? null,
+            mimeType: $data['mimeType'] ?? throw InvalidArgumentException::missing('log.entries[].(request|response)[].mimeType'),
+            text: $data['text'] ?? null,
+            encoding: $data['encoding'] ?? null,
+            comment: $data['comment'] ?? null,
+        );
     }
 
     /**

@@ -37,15 +37,11 @@ class QueryString implements JsonSerializable
      */
     public static function load(array $data): static
     {
-        try {
-            return new static(
-                name: $data['name'] ?? throw InvalidArgumentException::missing('log.entries[].request[].queryString[].name'),
-                value: $data['value'] ?? throw InvalidArgumentException::missing('log.entries[].request[].queryString[].value'),
-                comment: $data['comment'] ?? null,
-            );
-        } catch (InvalidArgumentException $exception) {
-            throw $exception;
-        }
+        return new static(
+            name: $data['name'] ?? throw InvalidArgumentException::missing('log.entries[].request[].queryString[].name'),
+            value: $data['value'] ?? throw InvalidArgumentException::missing('log.entries[].request[].queryString[].value'),
+            comment: $data['comment'] ?? null,
+        );
     }
 
     /**

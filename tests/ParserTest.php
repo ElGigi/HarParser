@@ -10,11 +10,15 @@
 
 namespace ElGigi\HarParser\Tests;
 
+use ElGigi\HarParser\Exception\InvalidArgumentException;
 use ElGigi\HarParser\Parser;
 use PHPUnit\Framework\TestCase;
 
 class ParserTest extends TestCase
 {
+    /**
+     * @throws InvalidArgumentException
+     */
     public function testParse()
     {
         $json = json_decode(file_get_contents(__DIR__ . '/example.har'), true);
@@ -38,14 +42,14 @@ class ParserTest extends TestCase
                 ]
             ],
             $parser->clear([
-                'log' => [
-                    'request' => [
-                        'foo' => 'bar',
-                        '_baz' => 'qux'
-                    ],
-                    '_notSpec' => 'test'
-                ]
-            ])
+                               'log' => [
+                                   'request' => [
+                                       'foo' => 'bar',
+                                       '_baz' => 'qux'
+                                   ],
+                                   '_notSpec' => 'test'
+                               ]
+                           ])
         );
     }
 }

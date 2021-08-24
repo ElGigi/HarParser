@@ -42,20 +42,16 @@ class Timings implements JsonSerializable
      */
     public static function load(array $data): static
     {
-        try {
-            return new static(
-                blocked: $data['blocked'] ?? null,
-                dns: $data['dns'] ?? null,
-                connect: $data['connect'] ?? null,
-                send: $data['send'] ?? throw InvalidArgumentException::missing('log.entries[].timing.send'),
-                wait: $data['wait'] ?? throw InvalidArgumentException::missing('log.entries[].timing.wait'),
-                receive: $data['receive'] ?? throw InvalidArgumentException::missing('log.entries[].timing.receive'),
-                ssl: $data['ssl'] ?? null,
-                comment: $data['comment'] ?? null,
-            );
-        } catch (InvalidArgumentException $exception) {
-            throw $exception;
-        }
+        return new static(
+            blocked: $data['blocked'] ?? null,
+            dns: $data['dns'] ?? null,
+            connect: $data['connect'] ?? null,
+            send: $data['send'] ?? throw InvalidArgumentException::missing('log.entries[].timing.send'),
+            wait: $data['wait'] ?? throw InvalidArgumentException::missing('log.entries[].timing.wait'),
+            receive: $data['receive'] ?? throw InvalidArgumentException::missing('log.entries[].timing.receive'),
+            ssl: $data['ssl'] ?? null,
+            comment: $data['comment'] ?? null,
+        );
     }
 
     /**
