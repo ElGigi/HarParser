@@ -6,6 +6,8 @@
 [![Quality Grade](https://img.shields.io/codacy/grade/0447a4290de744dc81a7e2cf9891a47d/main.svg?style=flat-square)](https://app.codacy.com/gh/ElGigi/HarParser)
 [![Total Downloads](https://img.shields.io/packagist/dt/elgigi/har-parser.svg?style=flat-square)](https://packagist.org/packages/elgigi/har-parser)
 
+Library to parse and generate [HAR file format](https://en.wikipedia.org/wiki/HAR_(file_format)).
+
 ## Usage
 
 Load you HAR file with an `Parser` object or with `Log` entity.
