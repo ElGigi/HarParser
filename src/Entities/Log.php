@@ -30,8 +30,7 @@ class Log implements JsonSerializable
         protected array $pages,
         protected array $entries,
         protected ?string $comment = null,
-    )
-    {
+    ) {
         $this->pages = array_filter($this->pages, fn($page) => $page instanceof Page);
         $this->entries = array_filter($this->entries, fn($entry) => $entry instanceof Entry);
     }
@@ -53,7 +52,7 @@ class Log implements JsonSerializable
             version: $data['log']['version'] ?? throw InvalidArgumentException::missing('log.version'),
             creator: Creator::load($data['log']['creator'] ?? throw InvalidArgumentException::missing('log.creator')),
             browser: isset($data['log']['browser']) ? Browser::load($data['log']['browser']) : null,
-            pages: $pages,
+            pages:   $pages,
             entries: $entries,
             comment: $data['log']['comment'] ?? null,
         );
@@ -170,6 +169,29 @@ class Log implements JsonSerializable
                 yield $entry;
             }
         }
+    }
+
+    /**
+     * Get entry.
+     *
+     * @param int $entry
+     * @param Page|string|null $page
+     *
+     * @return Entry|null
+     */
+    public function getEntry(int $entry, Page|string|null $page = null): ?Entry
+    {
+        if (null === $page) {
+            return $this->entries[$entry] ?? null;
+        }
+
+        foreach ($this->getEntries($page) as $key => $value) {
+            if ($key == $entry) {
+                return $value;
+            }
+        }
+
+        return null;
     }
 
     /**
