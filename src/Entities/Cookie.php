@@ -48,12 +48,18 @@ class Cookie implements JsonSerializable
     public static function load(array $data): static
     {
         try {
+            if (isset($data['expires'])) {
+                if (!$data['expires'] instanceof DateTimeInterface) {
+                    $data['expires'] = new DateTimeImmutable($data['expires']);
+                }
+            }
+
             return new static(
                 name: $data['name'] ?? throw InvalidArgumentException::missing('log.entries[].(request|response)[].cookies[].name'),
                 value: $data['value'] ?? throw InvalidArgumentException::missing('log.entries[].(request|response)[].cookies[].value'),
                 path: $data['path'] ?? null,
                 domain: $data['domain'] ?? null,
-                expires: $data['expires'] ? new DateTimeImmutable($data['expires']) : null,
+                expires: isset($data['expires']) ? DateTimeImmutable::createFromInterface($data['expires']) : null,
                 httpOnly: $data['httpOnly'] ?? null,
                 secure: $data['secure'] ?? null,
                 sameSite: $data['sameSite'] ?? null,
