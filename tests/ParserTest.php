@@ -10,23 +10,36 @@
 
 namespace ElGigi\HarParser\Tests;
 
-use ElGigi\HarParser\Exception\InvalidArgumentException;
 use ElGigi\HarParser\Parser;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 class ParserTest extends TestCase
 {
-    /**
-     * @throws InvalidArgumentException
-     */
     public function testParse()
     {
         $json = json_decode(file_get_contents(__DIR__ . '/example.har'), true);
         $parser = new Parser();
         $log = $parser->parse($json);
 
-        $this->assertCount(count($json['log']['entries']), $log->getEntries());
+        $this->assertCount(count($json['log']['entries']), iterator_to_array($log->getEntries()));
         $this->assertEquals($parser->clear($json), json_decode(json_encode($log), true));
+    }
+
+    public function testParse_file()
+    {
+        $parser = new Parser();
+        $log = $parser->parse(__DIR__ . '/example.har', true);
+
+        $this->assertCount(61, iterator_to_array($log->getEntries()));
+    }
+
+    public function testParse_fileNotFound()
+    {
+        $this->expectException(RuntimeException::class);
+
+        $parser = new Parser();
+        $parser->parse(__DIR__ . '/fake.har', true);
     }
 
     public function testClear()
@@ -42,14 +55,14 @@ class ParserTest extends TestCase
                 ]
             ],
             $parser->clear([
-                               'log' => [
-                                   'request' => [
-                                       'foo' => 'bar',
-                                       '_baz' => 'qux'
-                                   ],
-                                   '_notSpec' => 'test'
-                               ]
-                           ])
+                'log' => [
+                    'request' => [
+                        'foo' => 'bar',
+                        '_baz' => 'qux'
+                    ],
+                    '_notSpec' => 'test'
+                ]
+            ])
         );
     }
 }

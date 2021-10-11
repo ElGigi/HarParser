@@ -9,6 +9,7 @@ For change log format, use [Keep a Changelog] (http://keepachangelog.com/).
 ### Fixed
 
 - Creation of `Cookie` with expires parameter whose type is `DateTimeInterface`
+- `Parser::parse()` does not throw exception if filename does not exist
 
 ## [1.0.0-beta2] - 2021-09-08
 

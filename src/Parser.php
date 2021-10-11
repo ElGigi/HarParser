@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace ElGigi\HarParser;
 
 use ElGigi\HarParser\Entities\Log;
+use RuntimeException;
 
 /**
  * Class HarParser.
@@ -31,7 +32,9 @@ class Parser
     public function parse(string|array $content, bool $contentIsFile = false): Log
     {
         if (true === $contentIsFile) {
-            $content = file_get_contents($content);
+            if (false === ($content = @file_get_contents($filename = $content))) {
+                throw new RuntimeException(sprintf('Unable to open file "%s"', $filename));
+            }
         }
 
         if (is_string($content)) {
@@ -45,6 +48,7 @@ class Parser
      * Clear HAR.
      *
      * @param array $data
+     *
      * @return array
      */
     public function clear(array $data): array
