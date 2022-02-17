@@ -76,18 +76,20 @@ class Response extends Message implements JsonSerializable
     }
 
     /**
-     * @inheritDoc
+     * Get array copy.
+     *
+     * @return array
      */
-    public function jsonSerialize(): array
+    public function getArrayCopy(): array
     {
         return array_filter(
             [
                 'status' => $this->status,
                 'statusText' => $this->statusText,
                 'httpVersion' => $this->httpVersion,
-                'cookies' => $this->cookies,
-                'headers' => $this->headers,
-                'content' => $this->content,
+                'cookies' => array_map(fn(Cookie $cookie) => $cookie->getArrayCopy(), $this->cookies),
+                'headers' => array_map(fn(Header $header) => $header->getArrayCopy(), $this->headers),
+                'content' => $this->content->getArrayCopy(),
                 'redirectURL' => $this->redirectURL,
                 'headersSize' => $this->headersSize,
                 'bodySize' => $this->bodySize,
@@ -95,6 +97,14 @@ class Response extends Message implements JsonSerializable
             ],
             fn($value) => null !== $value
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize(): array
+    {
+        return $this->getArrayCopy();
     }
 
     /**

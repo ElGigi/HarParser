@@ -31,8 +31,7 @@ class Request extends Message implements JsonSerializable
         int $headersSize,
         int $bodySize,
         ?string $comment = null,
-    )
-    {
+    ) {
         parent::__construct(
             httpVersion: $httpVersion,
             cookies: $cookies,
@@ -62,14 +61,42 @@ class Request extends Message implements JsonSerializable
         return new static(
             method: $data['method'] ?? throw InvalidArgumentException::missing('log.entries[].request.method'),
             url: $data['url'] ?? throw InvalidArgumentException::missing('log.entries[].request.url'),
-            httpVersion: $data['httpVersion'] ?? throw InvalidArgumentException::missing('log.entries[].request.httpVersion'),
+            httpVersion: $data['httpVersion'] ?? throw InvalidArgumentException::missing(
+                'log.entries[].request.httpVersion'
+            ),
             cookies: $cookies,
             headers: $headers,
             queryString: $queryString,
             postData: isset($data['postData']) ? PostData::load($data['postData']) : null,
-            headersSize: $data['headersSize'] ?? throw InvalidArgumentException::missing('log.entries[].request.headersSize'),
+            headersSize: $data['headersSize'] ?? throw InvalidArgumentException::missing(
+                'log.entries[].request.headersSize'
+            ),
             bodySize: $data['bodySize'] ?? throw InvalidArgumentException::missing('log.entries[].request.bodySize'),
             comment: $data['comment'] ?? null,
+        );
+    }
+
+    /**
+     * Get array copy.
+     *
+     * @return array
+     */
+    public function getArrayCopy(): array
+    {
+        return array_filter(
+            [
+                'method' => $this->method,
+                'url' => $this->url,
+                'httpVersion' => $this->httpVersion,
+                'cookies' => array_map(fn(Cookie $cookie) => $cookie->getArrayCopy(), $this->cookies),
+                'headers' => array_map(fn(Header $header) => $header->getArrayCopy(), $this->headers),
+                'queryString' => array_map(fn(QueryString $query) => $query->getArrayCopy(), $this->queryString),
+                'postData' => $this->postData?->getArrayCopy() ?: null,
+                'headersSize' => $this->headersSize,
+                'bodySize' => $this->bodySize,
+                'comment' => $this->comment,
+            ],
+            fn($value) => null !== $value
         );
     }
 
@@ -78,21 +105,7 @@ class Request extends Message implements JsonSerializable
      */
     public function jsonSerialize(): array
     {
-        return array_filter(
-            [
-                'method' => $this->method,
-                'url' => $this->url,
-                'httpVersion' => $this->httpVersion,
-                'cookies' => $this->cookies,
-                'headers' => $this->headers,
-                'queryString' => $this->queryString,
-                'postData' => $this->postData ?: null,
-                'headersSize' => $this->headersSize,
-                'bodySize' => $this->bodySize,
-                'comment' => $this->comment,
-            ],
-            fn($value) => null !== $value
-        );
+        return $this->getArrayCopy();
     }
 
     /**

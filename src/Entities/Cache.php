@@ -29,8 +29,7 @@ class Cache implements JsonSerializable
         protected string $eTag,
         protected int $hitCount,
         protected ?string $comment = null,
-    )
-    {
+    ) {
     }
 
     /**
@@ -48,7 +47,8 @@ class Cache implements JsonSerializable
                 expires: $data['expires'] ? new DateTimeImmutable($data['expires']) : null,
                 lastAccess: $data['lastAccess'] ? new DateTimeImmutable($data['lastAccess']) : null,
                 eTag: $data['eTag'] ?? throw InvalidArgumentException::missing('log.entries[].cache[].eTag'),
-                hitCount: $data['hitCount'] ?? throw InvalidArgumentException::missing('log.entries[].cache[].hitCount'),
+                hitCount: $data['hitCount'] ??
+                throw InvalidArgumentException::missing('log.entries[].cache[].hitCount'),
                 comment: $data['comment'] ?? null,
             );
         } catch (InvalidArgumentException $exception) {
@@ -59,9 +59,11 @@ class Cache implements JsonSerializable
     }
 
     /**
-     * @inheritDoc
+     * Get array copy.
+     *
+     * @return array
      */
-    public function jsonSerialize(): array
+    public function getArrayCopy(): array
     {
         return array_filter(
             [
@@ -73,6 +75,14 @@ class Cache implements JsonSerializable
             ],
             fn($value) => null !== $value
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize(): array
+    {
+        return $this->getArrayCopy();
     }
 
     /**

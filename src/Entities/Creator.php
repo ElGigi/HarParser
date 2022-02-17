@@ -45,9 +45,11 @@ class Creator implements JsonSerializable
     }
 
     /**
-     * @inheritDoc
+     * Get array copy.
+     *
+     * @return array
      */
-    public function jsonSerialize(): array
+    public function getArrayCopy(): array
     {
         return array_filter(
             [
@@ -56,6 +58,14 @@ class Creator implements JsonSerializable
                 'comment' => $this->comment,
             ]
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize(): array
+    {
+        return $this->getArrayCopy();
     }
 
     /**

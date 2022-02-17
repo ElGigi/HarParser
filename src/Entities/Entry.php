@@ -52,21 +52,21 @@ class Entry implements JsonSerializable
             return new static(
                 pageref: $data['pageref'] ?? null,
                 startedDateTime: new DateTimeImmutable(
-                             $data['startedDateTime'] ?? throw InvalidArgumentException::missing(
-                                 'log.entries[].startedDateTime'
-                             )
-                         ),
+                    $data['startedDateTime'] ?? throw InvalidArgumentException::missing(
+                        'log.entries[].startedDateTime'
+                    )
+                ),
                 time: $data['time'] ?? throw InvalidArgumentException::missing('log.entries[].time'),
                 request: Request::load(
-                             $data['request'] ?? throw InvalidArgumentException::missing(
-                                 'log.entries[].request'
-                             )
-                         ),
+                    $data['request'] ?? throw InvalidArgumentException::missing(
+                        'log.entries[].request'
+                    )
+                ),
                 response: Response::load(
-                             $data['response'] ?? throw InvalidArgumentException::missing(
-                                 'log.entries[].response'
-                             )
-                         ),
+                    $data['response'] ?? throw InvalidArgumentException::missing(
+                        'log.entries[].response'
+                    )
+                ),
                 cache: $cache,
                 timings: Timings::load($data['timings'] ?? []),
                 serverIPAddress: $data['serverIPAddress'] ?? null,
@@ -81,25 +81,35 @@ class Entry implements JsonSerializable
     }
 
     /**
-     * @inheritDoc
+     * Get array copy.
+     *
+     * @return array
      */
-    public function jsonSerialize(): array
+    public function getArrayCopy(): array
     {
         return array_filter(
             [
                 'pageref' => $this->pageref,
                 'startedDateTime' => $this->startedDateTime->format(Log::DATE_FORMAT),
                 'time' => $this->time,
-                'request' => $this->request,
-                'response' => $this->response,
-                'cache' => $this->cache,
-                'timings' => $this->timings,
+                'request' => $this->request->getArrayCopy(),
+                'response' => $this->response->getArrayCopy(),
+                'cache' => array_map(fn(Cache $cache) => $cache->getArrayCopy(), $this->cache),
+                'timings' => $this->timings->getArrayCopy(),
                 'serverIPAddress' => $this->serverIPAddress,
                 'connection' => $this->connection,
                 'comment' => $this->comment,
             ],
             fn($value) => null !== $value
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize(): array
+    {
+        return $this->getArrayCopy();
     }
 
     /**

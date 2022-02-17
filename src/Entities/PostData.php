@@ -50,19 +50,29 @@ class PostData implements JsonSerializable
     }
 
     /**
-     * @inheritDoc
+     * Get array copy.
+     *
+     * @return array
      */
-    public function jsonSerialize(): array
+    public function getArrayCopy(): array
     {
         return array_filter(
             [
                 'mimeType' => $this->mimeType,
-                'params' => $this->params ?: null,
+                'params' => array_map(fn(Param $param) => $param->getArrayCopy(), $this->params) ?: null,
                 'text' => $this->text,
                 'comment' => $this->comment,
             ],
             fn($value) => null !== $value
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize(): array
+    {
+        return $this->getArrayCopy();
     }
 
     /**

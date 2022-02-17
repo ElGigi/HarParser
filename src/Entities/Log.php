@@ -52,10 +52,32 @@ class Log implements JsonSerializable
             version: $data['log']['version'] ?? throw InvalidArgumentException::missing('log.version'),
             creator: Creator::load($data['log']['creator'] ?? throw InvalidArgumentException::missing('log.creator')),
             browser: isset($data['log']['browser']) ? Browser::load($data['log']['browser']) : null,
-            pages:   $pages,
+            pages: $pages,
             entries: $entries,
             comment: $data['log']['comment'] ?? null,
         );
+    }
+
+    /**
+     * Get array copy.
+     *
+     * @return array
+     */
+    public function getArrayCopy(): array
+    {
+        return [
+            'log' => array_filter(
+                [
+                    'version' => $this->version,
+                    'creator' => $this->creator->getArrayCopy(),
+                    'browser' => $this->browser->getArrayCopy(),
+                    'pages' => array_map(fn(Page $page) => $page->getArrayCopy(), $this->pages) ?: null,
+                    'entries' => array_map(fn(Entry $entry) => $entry->getArrayCopy(), $this->entries) ?: null,
+                    'comment' => $this->comment,
+                ],
+                fn($value) => null !== $value
+            )
+        ];
     }
 
     /**
@@ -63,19 +85,7 @@ class Log implements JsonSerializable
      */
     public function jsonSerialize(): array
     {
-        return [
-            'log' => array_filter(
-                [
-                    'version' => $this->version,
-                    'creator' => $this->creator,
-                    'browser' => $this->browser,
-                    'pages' => $this->pages ?: null,
-                    'entries' => $this->entries,
-                    'comment' => $this->comment,
-                ],
-                fn($value) => null !== $value
-            )
-        ];
+        return $this->getArrayCopy();
     }
 
     /**

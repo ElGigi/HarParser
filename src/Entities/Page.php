@@ -59,20 +59,30 @@ class Page implements JsonSerializable
     }
 
     /**
-     * @inheritDoc
+     * Get array copy.
+     *
+     * @return array
      */
-    public function jsonSerialize(): array
+    public function getArrayCopy(): array
     {
         return array_filter(
             [
                 'startedDateTime' => $this->startedDateTime->format(Log::DATE_FORMAT),
                 'id' => $this->id,
                 'title' => $this->title,
-                'pageTimings' => $this->pageTimings,
+                'pageTimings' => $this->pageTimings->getArrayCopy(),
                 'comment' => $this->comment,
             ],
             fn($value) => null !== $value
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize(): array
+    {
+        return $this->getArrayCopy();
     }
 
     /**
