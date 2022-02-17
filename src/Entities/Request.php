@@ -55,19 +55,15 @@ class Request extends Message
         $queryString = array_map(fn($query) => QueryString::load($query), $data['queryString'] ?? []);
 
         return new static(
-            method: $data['method'] ?? throw InvalidArgumentException::missing('log.entries[].request.method'),
-            url: $data['url'] ?? throw InvalidArgumentException::missing('log.entries[].request.url'),
-            httpVersion: $data['httpVersion'] ?? throw InvalidArgumentException::missing(
-                'log.entries[].request.httpVersion'
-            ),
+            method: $data['method'] ?? throw InvalidArgumentException::missing('method', static::class),
+            url: $data['url'] ?? throw InvalidArgumentException::missing('url', static::class),
+            httpVersion: $data['httpVersion'] ?? throw InvalidArgumentException::missing('httpVersion', static::class),
             cookies: $cookies,
             headers: $headers,
             queryString: $queryString,
             postData: isset($data['postData']) ? PostData::load($data['postData']) : null,
-            headersSize: $data['headersSize'] ?? throw InvalidArgumentException::missing(
-                'log.entries[].request.headersSize'
-            ),
-            bodySize: $data['bodySize'] ?? throw InvalidArgumentException::missing('log.entries[].request.bodySize'),
+            headersSize: $data['headersSize'] ?? throw InvalidArgumentException::missing('headersSize', static::class),
+            bodySize: $data['bodySize'] ?? throw InvalidArgumentException::missing('bodySize', static::class),
             comment: $data['comment'] ?? null,
         );
     }

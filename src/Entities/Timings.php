@@ -42,9 +42,9 @@ class Timings implements EntityInterface
             blocked: $data['blocked'] ?? null,
             dns: $data['dns'] ?? null,
             connect: $data['connect'] ?? null,
-            send: $data['send'] ?? throw InvalidArgumentException::missing('log.entries[].timing.send'),
-            wait: $data['wait'] ?? throw InvalidArgumentException::missing('log.entries[].timing.wait'),
-            receive: $data['receive'] ?? throw InvalidArgumentException::missing('log.entries[].timing.receive'),
+            send: $data['send'] ?? throw InvalidArgumentException::missing('send', static::class),
+            wait: $data['wait'] ?? throw InvalidArgumentException::missing('wait', static::class),
+            receive: $data['receive'] ?? throw InvalidArgumentException::missing('receive', static::class),
             ssl: $data['ssl'] ?? null,
             comment: $data['comment'] ?? null,
         );

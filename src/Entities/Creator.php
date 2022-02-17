@@ -34,8 +34,8 @@ class Creator implements EntityInterface
     public static function load(array $data): static
     {
         return new static(
-            name: $data['name'] ?? throw InvalidArgumentException::missing('name'),
-            version: $data['version'] ?? throw InvalidArgumentException::missing('version'),
+            name: $data['name'] ?? throw InvalidArgumentException::missing('name', static::class),
+            version: $data['version'] ?? throw InvalidArgumentException::missing('version', static::class),
             comment: $data['comment'] ?? null,
         );
     }

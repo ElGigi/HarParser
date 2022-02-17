@@ -34,8 +34,8 @@ class Header implements EntityInterface
     public static function load(array $data): static
     {
         return new static(
-            name: $data['name'] ?? throw InvalidArgumentException::missing('log.entries[].(request|response)[].headers[].name'),
-            value: $data['value'] ?? throw InvalidArgumentException::missing('log.entries[].(request|response)[].headers[].value'),
+            name: $data['name'] ?? throw InvalidArgumentException::missing('name', static::class),
+            value: $data['value'] ?? throw InvalidArgumentException::missing('value', static::class),
             comment: $data['comment'] ?? null,
         );
     }

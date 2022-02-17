@@ -25,8 +25,7 @@ class Page implements EntityInterface
         protected string $title,
         protected PageTimings $pageTimings,
         protected ?string $comment = null,
-    )
-    {
+    ) {
     }
 
     /**
@@ -41,10 +40,16 @@ class Page implements EntityInterface
     {
         try {
             return new static(
-                startedDateTime: new DateTimeImmutable($data['startedDateTime'] ?? throw InvalidArgumentException::missing('log.pages[].startedDateTime')),
-                id: $data['id'] ?? throw InvalidArgumentException::missing('log.pages[].id'),
-                title: $data['title'] ?? throw InvalidArgumentException::missing('log.pages[].title'),
-                pageTimings: PageTimings::load($data['pageTimings'] ?? throw InvalidArgumentException::missing('log.pages[].pageTimings')),
+                startedDateTime: new DateTimeImmutable(
+                    $data['startedDateTime'] ??
+                    throw InvalidArgumentException::missing('startedDateTime', static::class)
+                ),
+                id: $data['id'] ?? throw InvalidArgumentException::missing('id', static::class),
+                title: $data['title'] ?? throw InvalidArgumentException::missing('title', static::class),
+                pageTimings: PageTimings::load(
+                    $data['pageTimings'] ??
+                    throw InvalidArgumentException::missing('pageTimings', static::class)
+                ),
                 comment: $data['comment'] ?? null,
             );
         } catch (InvalidArgumentException $exception) {

@@ -29,8 +29,7 @@ class Cookie implements EntityInterface
         protected ?bool $secure = null,
         protected ?string $sameSite = null,
         protected ?string $comment = null,
-    )
-    {
+    ) {
     }
 
     /**
@@ -51,8 +50,8 @@ class Cookie implements EntityInterface
             }
 
             return new static(
-                name: $data['name'] ?? throw InvalidArgumentException::missing('log.entries[].(request|response)[].cookies[].name'),
-                value: $data['value'] ?? throw InvalidArgumentException::missing('log.entries[].(request|response)[].cookies[].value'),
+                name: $data['name'] ?? throw InvalidArgumentException::missing('name', static::class),
+                value: $data['value'] ?? throw InvalidArgumentException::missing('value', static::class),
                 path: $data['path'] ?? null,
                 domain: $data['domain'] ?? null,
                 expires: isset($data['expires']) ? DateTimeImmutable::createFromInterface($data['expires']) : null,

@@ -27,8 +27,7 @@ class Response extends Message
         int $headersSize,
         int $bodySize,
         ?string $comment = null,
-    )
-    {
+    ) {
         parent::__construct(
             httpVersion: $httpVersion,
             cookies: $cookies,
@@ -54,15 +53,18 @@ class Response extends Message
             $headers = array_map(fn($header) => Header::load($header), $data['headers'] ?? []);
 
             return new static(
-                status: $data['status'] ?? throw InvalidArgumentException::missing('log.entries[].response.status'),
-                statusText: $data['statusText'] ?? throw InvalidArgumentException::missing('log.entries[].response.statusText'),
-                httpVersion: $data['httpVersion'] ?? throw InvalidArgumentException::missing('log.entries[].response.httpVersion'),
+                status: $data['status'] ?? throw InvalidArgumentException::missing('status', static::class),
+                statusText: $data['statusText'] ?? throw InvalidArgumentException::missing('statusText', static::class),
+                httpVersion: $data['httpVersion'] ??
+                throw InvalidArgumentException::missing('httpVersion', static::class),
                 cookies: $cookies,
                 headers: $headers,
                 content: Content::load($data['content'] ?? []),
-                redirectURL: $data['redirectURL'] ?? throw InvalidArgumentException::missing('log.entries[].response.redirectURL'),
-                headersSize: $data['headersSize'] ?? throw InvalidArgumentException::missing('log.entries[].response.headersSize'),
-                bodySize: $data['bodySize'] ?? throw InvalidArgumentException::missing('log.entries[].response.bodySize'),
+                redirectURL: $data['redirectURL'] ??
+                throw InvalidArgumentException::missing('redirectURL', static::class),
+                headersSize: $data['headersSize'] ??
+                throw InvalidArgumentException::missing('headersSize', static::class),
+                bodySize: $data['bodySize'] ?? throw InvalidArgumentException::missing('bodySize', static::class),
                 comment: $data['comment'] ?? null,
             );
         } catch (InvalidArgumentException $exception) {

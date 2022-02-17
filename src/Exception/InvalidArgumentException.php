@@ -12,17 +12,26 @@ declare(strict_types=1);
 
 namespace ElGigi\HarParser\Exception;
 
+use ElGigi\HarParser\Entities\EntityInterface;
+
 class InvalidArgumentException extends HarFileException
 {
     /**
      * Missing argument.
      *
      * @param string $name
+     * @param EntityInterface|string $entity
      *
      * @return static
      */
-    public static function missing(string $name): static
+    public static function missing(string $name, EntityInterface|string $entity): static
     {
-        return new static(sprintf('Missing "%s" argument', $name));
+        return new static(
+            sprintf(
+                'Missing "%s" argument for "%s" entity',
+                $name,
+                is_string($entity) ? $entity : $entity::class
+            )
+        );
     }
 }

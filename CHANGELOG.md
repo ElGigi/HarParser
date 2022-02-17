@@ -11,6 +11,10 @@ For change log format, use [Keep a Changelog] (http://keepachangelog.com/).
 - New method `getArrayCopy()` on entities
 - New interface `EntityInterface` for entities
 
+### Changed
+
+- Improve missing argument exception message
+
 ### Removed
 
 - Unnecessary class PhpDoc

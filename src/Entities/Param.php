@@ -37,7 +37,7 @@ class Param implements EntityInterface
     public static function load(array $data): static
     {
         return new static(
-            name: $data['name'] ?? throw InvalidArgumentException::missing('log.entries[].request[].postData[].params[].name'),
+            name: $data['name'] ?? throw InvalidArgumentException::missing('name', static::class),
             value: $data['value'] ?? null,
             fileName: $data['fileName'] ?? null,
             contentType: $data['contentType'] ?? null,

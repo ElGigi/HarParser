@@ -45,8 +45,11 @@ class Log implements EntityInterface
         $entries = array_map(fn($entry) => Entry::load($entry), $data['log']['entries'] ?? []);
 
         return new static(
-            version: $data['log']['version'] ?? throw InvalidArgumentException::missing('log.version'),
-            creator: Creator::load($data['log']['creator'] ?? throw InvalidArgumentException::missing('log.creator')),
+            version: $data['log']['version'] ?? throw InvalidArgumentException::missing('version', static::class),
+            creator: Creator::load(
+                $data['log']['creator'] ??
+                throw InvalidArgumentException::missing('creator', static::class)
+            ),
             browser: isset($data['log']['browser']) ? Browser::load($data['log']['browser']) : null,
             pages: $pages,
             entries: $entries,

@@ -21,8 +21,7 @@ class PostData implements EntityInterface
         protected array $params,
         protected string $text,
         protected ?string $comment = null,
-    )
-    {
+    ) {
     }
 
     /**
@@ -38,9 +37,9 @@ class PostData implements EntityInterface
         $params = array_map(fn($param) => Param::load($param), $data['params'] ?? []);
 
         return new static(
-            mimeType: $data['mimeType'] ?? throw InvalidArgumentException::missing('log.entries[].request[].postData[].mimeType'),
+            mimeType: $data['mimeType'] ?? throw InvalidArgumentException::missing('mimeType', static::class),
             params: $params,
-            text: $data['text'] ?? throw InvalidArgumentException::missing('log.entries[].request[].postData[].text'),
+            text: $data['text'] ?? throw InvalidArgumentException::missing('text', static::class),
             comment: $data['comment'] ?? null,
         );
     }

@@ -48,20 +48,17 @@ class Entry implements EntityInterface
             return new static(
                 pageref: $data['pageref'] ?? null,
                 startedDateTime: new DateTimeImmutable(
-                    $data['startedDateTime'] ?? throw InvalidArgumentException::missing(
-                        'log.entries[].startedDateTime'
-                    )
+                    $data['startedDateTime'] ??
+                    throw InvalidArgumentException::missing('startedDateTime', static::class)
                 ),
-                time: $data['time'] ?? throw InvalidArgumentException::missing('log.entries[].time'),
+                time: $data['time'] ?? throw InvalidArgumentException::missing('time', static::class),
                 request: Request::load(
-                    $data['request'] ?? throw InvalidArgumentException::missing(
-                        'log.entries[].request'
-                    )
+                    $data['request'] ??
+                    throw InvalidArgumentException::missing('request', static::class)
                 ),
                 response: Response::load(
-                    $data['response'] ?? throw InvalidArgumentException::missing(
-                        'log.entries[].response'
-                    )
+                    $data['response'] ??
+                    throw InvalidArgumentException::missing('response', static::class)
                 ),
                 cache: $cache,
                 timings: Timings::load($data['timings'] ?? []),

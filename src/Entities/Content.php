@@ -38,9 +38,9 @@ class Content implements EntityInterface
     public static function load(array $data): static
     {
         return new static(
-            size: $data['size'] ?? throw InvalidArgumentException::missing('log.entries[].(request|response)[].size'),
+            size: $data['size'] ?? throw InvalidArgumentException::missing('size', static::class),
             compression: $data['compression'] ?? null,
-            mimeType: $data['mimeType'] ?? throw InvalidArgumentException::missing('log.entries[].(request|response)[].mimeType'),
+            mimeType: $data['mimeType'] ?? throw InvalidArgumentException::missing('mimeType', static::class),
             text: $data['text'] ?? null,
             encoding: $data['encoding'] ?? null,
             comment: $data['comment'] ?? null,
