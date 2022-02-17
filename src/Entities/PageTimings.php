@@ -12,9 +12,7 @@ declare(strict_types=1);
 
 namespace ElGigi\HarParser\Entities;
 
-use JsonSerializable;
-
-class PageTimings implements JsonSerializable
+class PageTimings implements EntityInterface
 {
     public function __construct(
         protected ?float $onContentLoad,

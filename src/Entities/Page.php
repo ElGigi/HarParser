@@ -16,9 +16,8 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use ElGigi\HarParser\Exception\InvalidArgumentException;
 use Exception;
-use JsonSerializable;
 
-class Page implements JsonSerializable
+class Page implements EntityInterface
 {
     public function __construct(
         protected DateTimeInterface $startedDateTime,

@@ -13,9 +13,8 @@ declare(strict_types=1);
 namespace ElGigi\HarParser\Entities;
 
 use ElGigi\HarParser\Exception\InvalidArgumentException;
-use JsonSerializable;
 
-class Header implements JsonSerializable
+class Header implements EntityInterface
 {
     public function __construct(
         protected string $name,

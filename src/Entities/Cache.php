@@ -16,9 +16,8 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use ElGigi\HarParser\Exception\InvalidArgumentException;
 use Exception;
-use JsonSerializable;
 
-class Cache implements JsonSerializable
+class Cache implements EntityInterface
 {
     public function __construct(
         protected ?DateTimeInterface $expires,

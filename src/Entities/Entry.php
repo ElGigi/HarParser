@@ -15,9 +15,8 @@ namespace ElGigi\HarParser\Entities;
 use DateTimeImmutable;
 use ElGigi\HarParser\Exception\InvalidArgumentException;
 use Exception;
-use JsonSerializable;
 
-class Entry implements JsonSerializable
+class Entry implements EntityInterface
 {
     public function __construct(
         protected ?string $pageref,

@@ -9,6 +9,7 @@ For change log format, use [Keep a Changelog] (http://keepachangelog.com/).
 ### Added
 
 - New method `getArrayCopy()` on entities
+- New interface `EntityInterface` for entities
 
 ### Removed
 

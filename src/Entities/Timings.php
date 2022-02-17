@@ -13,9 +13,8 @@ declare(strict_types=1);
 namespace ElGigi\HarParser\Entities;
 
 use ElGigi\HarParser\Exception\InvalidArgumentException;
-use JsonSerializable;
 
-class Timings implements JsonSerializable
+class Timings implements EntityInterface
 {
     public function __construct(
         protected ?float $blocked,

@@ -14,9 +14,8 @@ namespace ElGigi\HarParser\Entities;
 
 use ElGigi\HarParser\Exception\InvalidArgumentException;
 use Generator;
-use JsonSerializable;
 
-class Log implements JsonSerializable
+class Log implements EntityInterface
 {
     public const DATE_FORMAT = 'Y-m-d\TH:i:s.vp';
 

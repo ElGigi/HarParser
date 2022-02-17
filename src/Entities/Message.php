@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace ElGigi\HarParser\Entities;
 
-abstract class Message
+abstract class Message implements EntityInterface
 {
     public function __construct(
         protected string $httpVersion,

@@ -16,9 +16,8 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use ElGigi\HarParser\Exception\InvalidArgumentException;
 use Exception;
-use JsonSerializable;
 
-class Cookie implements JsonSerializable
+class Cookie implements EntityInterface
 {
     public function __construct(
         protected string $name,
