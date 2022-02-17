@@ -23,8 +23,7 @@ class Content implements EntityInterface
         protected ?string $text,
         protected ?string $encoding = null,
         protected ?string $comment = null,
-    )
-    {
+    ) {
     }
 
     /**

@@ -32,8 +32,8 @@ class PageTimings implements EntityInterface
     {
         return new static(
             onContentLoad: $data['onContentLoad'] ?? null,
-            onLoad:        $data['onLoad'] ?? null,
-            comment:       $data['comment'] ?? null,
+            onLoad: $data['onLoad'] ?? null,
+            comment: $data['comment'] ?? null,
         );
     }
 

@@ -22,8 +22,7 @@ class Param implements EntityInterface
         protected ?string $fileName,
         protected ?string $contentType,
         protected ?string $comment = null,
-    )
-    {
+    ) {
     }
 
     /**
