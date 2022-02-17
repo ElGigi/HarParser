@@ -17,9 +17,6 @@ use ElGigi\HarParser\Exception\InvalidArgumentException;
 use Exception;
 use JsonSerializable;
 
-/**
- * Class Entry.
- */
 class Entry implements JsonSerializable
 {
     public function __construct(

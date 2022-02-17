@@ -15,9 +15,6 @@ namespace ElGigi\HarParser;
 use ElGigi\HarParser\Entities\Log;
 use RuntimeException;
 
-/**
- * Class HarParser.
- */
 class Parser
 {
     public function __construct()

@@ -6,6 +6,14 @@ For change log format, use [Keep a Changelog] (http://keepachangelog.com/).
 
 ## [1.0.0-beta3] - In progress
 
+### Added
+
+- New method `getArrayCopy()` on entities
+
+### Removed
+
+- Unnecessary class PhpDoc
+
 ### Fixed
 
 - Creation of `Cookie` with expires parameter whose type is `DateTimeInterface`

@@ -15,9 +15,6 @@ namespace ElGigi\HarParser\Entities;
 use ElGigi\HarParser\Exception\InvalidArgumentException;
 use JsonSerializable;
 
-/**
- * Class QueryString.
- */
 class QueryString implements JsonSerializable
 {
     public function __construct(

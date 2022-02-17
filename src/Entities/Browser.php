@@ -12,9 +12,6 @@ declare(strict_types=1);
 
 namespace ElGigi\HarParser\Entities;
 
-/**
- * Class Browser.
- */
 class Browser extends Creator
 {
 }

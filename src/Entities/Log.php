@@ -16,9 +16,6 @@ use ElGigi\HarParser\Exception\InvalidArgumentException;
 use Generator;
 use JsonSerializable;
 
-/**
- * Class Log.
- */
 class Log implements JsonSerializable
 {
     public const DATE_FORMAT = 'Y-m-d\TH:i:s.vp';

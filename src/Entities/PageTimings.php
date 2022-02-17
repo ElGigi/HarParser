@@ -14,9 +14,6 @@ namespace ElGigi\HarParser\Entities;
 
 use JsonSerializable;
 
-/**
- * Class PageTimings.
- */
 class PageTimings implements JsonSerializable
 {
     public function __construct(

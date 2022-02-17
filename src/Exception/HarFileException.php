@@ -14,9 +14,6 @@ namespace ElGigi\HarParser\Exception;
 
 use Exception;
 
-/**
- * Class HarFileException.
- */
 class HarFileException extends Exception
 {
 }

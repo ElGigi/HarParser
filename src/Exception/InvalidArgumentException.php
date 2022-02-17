@@ -12,9 +12,6 @@ declare(strict_types=1);
 
 namespace ElGigi\HarParser\Exception;
 
-/**
- * Class MissingArgumentException.
- */
 class InvalidArgumentException extends HarFileException
 {
     /**

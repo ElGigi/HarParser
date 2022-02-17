@@ -18,9 +18,6 @@ use ElGigi\HarParser\Exception\InvalidArgumentException;
 use Exception;
 use JsonSerializable;
 
-/**
- * Class Page.
- */
 class Page implements JsonSerializable
 {
     public function __construct(
