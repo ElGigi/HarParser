@@ -15,9 +15,9 @@ namespace ElGigi\HarParser\Entities;
 class PageTimings implements EntityInterface
 {
     public function __construct(
-        protected ?float $onContentLoad,
-        protected ?float $onLoad,
-        protected ?string $comment,
+        protected ?float $onContentLoad = null,
+        protected ?float $onLoad = null,
+        protected ?string $comment = null,
     ) {
     }
 

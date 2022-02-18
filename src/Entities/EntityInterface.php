@@ -12,10 +12,21 @@ declare(strict_types=1);
 
 namespace ElGigi\HarParser\Entities;
 
+use ElGigi\HarParser\Exception\InvalidArgumentException;
 use JsonSerializable;
 
 interface EntityInterface extends JsonSerializable
 {
+    /**
+     * Load.
+     *
+     * @param array $data
+     *
+     * @return static
+     * @throws InvalidArgumentException
+     */
+    public static function load(array $data): static;
+
     /**
      * Get array copy.
      *

@@ -40,8 +40,8 @@ class Cache implements EntityInterface
     {
         try {
             return new static(
-                expires: $data['expires'] ? new DateTimeImmutable($data['expires']) : null,
-                lastAccess: $data['lastAccess'] ? new DateTimeImmutable($data['lastAccess']) : null,
+                expires: isset($data['expires']) ? new DateTimeImmutable($data['expires']) : null,
+                lastAccess: isset($data['lastAccess']) ? new DateTimeImmutable($data['lastAccess']) : null,
                 eTag: $data['eTag'] ?? throw InvalidArgumentException::missing('eTag', static::class),
                 hitCount: $data['hitCount'] ?? throw InvalidArgumentException::missing('hitCount', static::class),
                 comment: $data['comment'] ?? null,
