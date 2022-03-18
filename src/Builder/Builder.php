@@ -65,7 +65,7 @@ class Builder implements BuilderInterface
     /**
      * @inheritDoc
      */
-    public function setCreator(Creator $creator)
+    public function setCreator(Creator $creator): void
     {
         $this->creator = $creator;
     }
@@ -73,7 +73,7 @@ class Builder implements BuilderInterface
     /**
      * @inheritDoc
      */
-    public function setBrowser(Browser $browser)
+    public function setBrowser(Browser $browser): void
     {
         $this->browser = $browser;
     }

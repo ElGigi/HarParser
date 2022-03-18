@@ -42,7 +42,7 @@ interface BuilderInterface
      *
      * @return void
      */
-    public function setCreator(Creator $creator);
+    public function setCreator(Creator $creator): void;
 
     /**
      * Set browser.
@@ -51,7 +51,7 @@ interface BuilderInterface
      *
      * @return void
      */
-    public function setBrowser(Browser $browser);
+    public function setBrowser(Browser $browser): void;
 
     /**
      * Add page.
