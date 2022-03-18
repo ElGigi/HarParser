@@ -73,7 +73,7 @@ class Builder implements BuilderInterface
     /**
      * @inheritDoc
      */
-    public function setBrowser(Browser $browser): void
+    public function setBrowser(?Browser $browser): void
     {
         $this->browser = $browser;
     }
@@ -112,7 +112,7 @@ class Builder implements BuilderInterface
         $log = new Log(
             version: $this->version,
             creator: $this->creator ?? throw new RuntimeException('Missing "creator" field'),
-            browser: $this->browser ?? throw new RuntimeException('Missing "browser" field'),
+            browser: $this->browser,
             pages: $this->pages,
             entries: $this->entries,
             comment: $this->comment,

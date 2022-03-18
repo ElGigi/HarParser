@@ -50,7 +50,7 @@ class BuilderStream implements BuilderInterface
             throw new RuntimeException('Unable to truncate resource');
         }
 
-        $defaultData = '{"log":{"version":1.2,"creator":null,"browser":null,"pages":[],"entries":[]}}';
+        $defaultData = '{"log":{"version":1.2,"creator":null,"pages":[],"entries":[]}}';
 
         if (false === fwrite($this->fp, $defaultData)) {
             throw new RuntimeException('Unable to write initial data on resource');
@@ -59,10 +59,10 @@ class BuilderStream implements BuilderInterface
         $this->positions = [
             self::SECTION_VERSION => [18, 3],
             self::SECTION_CREATOR => [32, 4],
-            self::SECTION_BROWSER => [47, 4],
-            self::SECTION_PAGES => [61, 0],
-            self::SECTION_ENTRIES => [74, 0],
-            self::SECTION_COMMENT => [75, 0],
+            self::SECTION_BROWSER => [36, 0],
+            self::SECTION_PAGES => [46, 0],
+            self::SECTION_ENTRIES => [59, 0],
+            self::SECTION_COMMENT => [60, 0],
         ];
     }
 
@@ -85,7 +85,7 @@ class BuilderStream implements BuilderInterface
             }
 
             $data = ($separator ?? '') . $data;
-            $dataLength = $written= strlen($data);
+            $dataLength = $written = strlen($data);
 
             if ($dataLength > 0) {
                 $written = b_fwritei(
@@ -149,9 +149,14 @@ class BuilderStream implements BuilderInterface
     /**
      * @inheritDoc
      */
-    public function setBrowser(Browser $browser): void
+    public function setBrowser(?Browser $browser): void
     {
-        $this->write(self::SECTION_BROWSER, json_encode($browser), false);
+        if (null === $browser) {
+            $this->write(self::SECTION_BROWSER, '', false);
+            return;
+        }
+
+        $this->write(self::SECTION_BROWSER, ',"browser":' . json_encode($browser), false);
     }
 
     /**
@@ -184,6 +189,6 @@ class BuilderStream implements BuilderInterface
             return;
         }
 
-        $this->write(self::SECTION_COMMENT,',"comment":' . json_encode($comment), false);
+        $this->write(self::SECTION_COMMENT, ',"comment":' . json_encode($comment), false);
     }
 }

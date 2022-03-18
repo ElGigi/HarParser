@@ -47,11 +47,11 @@ interface BuilderInterface
     /**
      * Set browser.
      *
-     * @param Browser $browser
+     * @param Browser|null $browser
      *
      * @return void
      */
-    public function setBrowser(Browser $browser): void;
+    public function setBrowser(?Browser $browser): void;
 
     /**
      * Add page.
