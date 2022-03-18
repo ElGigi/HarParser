@@ -16,7 +16,8 @@
   },
   "require": {
     "php": "^8.0",
-    "psr/http-message": "^1.0"
+    "psr/http-message": "^1.0",
+    "berlioz/helpers": "^1.8"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.5"

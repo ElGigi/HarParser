@@ -134,34 +134,6 @@ class LogTest extends TestCase
         $this->assertSame($page2, $entity->getPage('ID2'));
     }
 
-    public function testAddPage()
-    {
-        $entity = new Log(
-            version: 'Foo',
-            creator: new Creator('Berlioz', 'v2.0'),
-            browser: null,
-            pages: [],
-            entries: []
-        );
-
-        $entity->addPage(
-            $page1 = new Page(
-                startedDateTime: new DateTimeImmutable(),
-                id: 'ID1',
-                title: 'TITLE1',
-                pageTimings: new PageTimings(),
-            ),
-            $page2 = new Page(
-                startedDateTime: new DateTimeImmutable(),
-                id: 'ID2',
-                title: 'TITLE2',
-                pageTimings: new PageTimings(),
-            ),
-        );
-
-        $this->assertSame([$page1, $page2], $entity->getPages());
-    }
-
     public function testGetEntries()
     {
         $entity = new Log(
@@ -213,26 +185,6 @@ class LogTest extends TestCase
         $this->assertSame($entry2, $entity->getEntry(1));
         $this->assertSame($entry2, $entity->getEntry(0, 'ID'));
         $this->assertSame($entry2, $entity->getEntry(0, $page));
-    }
-
-    public function testAddEntry()
-    {
-        $entity = new Log(
-            version: 'Foo',
-            creator: new Creator('Berlioz', 'v2.0'),
-            browser: null,
-            pages: [],
-            entries: $expected = []
-        );
-
-        $this->assertSame($expected, iterator_to_array($entity->getEntries()));
-
-        $entity->addEntry(
-            $entry1 = new FakeEntry(),
-            $entry2 = new FakeEntry(pageref: 'ID'),
-        );
-
-        $this->assertSame([$entry1, $entry2], iterator_to_array($entity->getEntries()));
     }
 
     public function testGetComment()

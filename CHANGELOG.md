@@ -11,6 +11,7 @@ use [Keep a Changelog] (http://keepachangelog.com/).
 - New method `Log::getEntry(int $entry, Page|string|null $page = null): ?Entry`
 - New method `getArrayCopy()` on entities
 - New interface `EntityInterface` for entities
+- New builders classes `Builder` and `BuilderStream`
 
 ### Changed
 
@@ -18,6 +19,7 @@ use [Keep a Changelog] (http://keepachangelog.com/).
 
 ### Removed
 
+- Methods `Log::addPage()` and `Log::addEntry()` removed, use builders instead
 - Unnecessary class PhpDoc
 
 ### Fixed

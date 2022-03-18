@@ -147,16 +147,6 @@ class Log implements EntityInterface
     }
 
     /**
-     * Add page.
-     *
-     * @param Page ...$page
-     */
-    public function addPage(Page ...$page): void
-    {
-        array_push($this->pages, ...$page);
-    }
-
-    /**
      * Get entries.
      *
      * @param Page|string|null $page
@@ -201,16 +191,6 @@ class Log implements EntityInterface
         }
 
         return null;
-    }
-
-    /**
-     * Add entry.
-     *
-     * @param Entry ...$entry
-     */
-    public function addEntry(Entry ...$entry): void
-    {
-        array_push($this->entries, ...$entry);
     }
 
     /**

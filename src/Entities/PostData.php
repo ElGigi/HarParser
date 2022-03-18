@@ -16,12 +16,18 @@ use ElGigi\HarParser\Exception\InvalidArgumentException;
 
 class PostData implements EntityInterface
 {
+    /**
+     * @throws InvalidArgumentException
+     */
     public function __construct(
         protected string $mimeType,
         protected array $params,
-        protected string $text,
+        protected $text,
         protected ?string $comment = null,
     ) {
+        if (!(is_string($this->text) || is_resource($this->text))) {
+            throw new InvalidArgumentException('Argument $text must be a string value or a valid resource');
+        }
     }
 
     /**
@@ -51,11 +57,17 @@ class PostData implements EntityInterface
      */
     public function getArrayCopy(): array
     {
+        $text = $this->text;
+
+        if (is_resource($text)) {
+            $text = stream_get_contents($this->text, -1, 0);
+        }
+
         return array_filter(
             [
                 'mimeType' => $this->mimeType,
                 'params' => array_map(fn(Param $param) => $param->getArrayCopy(), $this->params) ?: null,
-                'text' => $this->text,
+                'text' => $text,
                 'comment' => $this->comment,
             ],
             fn($value) => null !== $value
@@ -93,9 +105,9 @@ class PostData implements EntityInterface
     /**
      * Get text.
      *
-     * @return string
+     * @return string|resource
      */
-    public function getText(): string
+    public function getText()
     {
         return $this->text;
     }

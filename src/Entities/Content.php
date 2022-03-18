@@ -16,14 +16,20 @@ use ElGigi\HarParser\Exception\InvalidArgumentException;
 
 class Content implements EntityInterface
 {
+    /**
+     * @throws InvalidArgumentException
+     */
     public function __construct(
         protected int $size,
         protected ?int $compression,
         protected string $mimeType,
-        protected ?string $text,
+        protected $text,
         protected ?string $encoding = null,
         protected ?string $comment = null,
     ) {
+        if (!(null === $this->text || is_string($this->text) || is_resource($this->text))) {
+            throw new InvalidArgumentException('Argument $text must be null, a string value or a valid resource');
+        }
     }
 
     /**
@@ -53,13 +59,21 @@ class Content implements EntityInterface
      */
     public function getArrayCopy(): array
     {
+        $text = $this->text;
+        $encoding = $this->encoding;
+
+        if (is_resource($text)) {
+            $text = base64_encode(stream_get_contents($this->text, -1, 0));
+            $encoding = 'base64';
+        }
+
         return array_filter(
             [
                 'size' => $this->size,
                 'compression' => $this->compression,
                 'mimeType' => $this->mimeType,
-                'text' => $this->text,
-                'encoding' => $this->encoding,
+                'text' => $text,
+                'encoding' => $encoding,
                 'comment' => $this->comment,
             ],
             fn($value) => null !== $value
@@ -107,9 +121,9 @@ class Content implements EntityInterface
     /**
      * Get text.
      *
-     * @return string|null
+     * @return string|resource|null
      */
-    public function getText(): ?string
+    public function getText()
     {
         return $this->text;
     }
