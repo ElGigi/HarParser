@@ -50,3 +50,24 @@ The HAR file is distributed in several entities:
             - Header[]
             - Content
         - Timings
+
+## Builder
+
+Two builders are available to construct an HAR file from entities:
+
+- `Builder`: build a `Log` entity from others entities
+- `BuilderStream`: build directly the JSON file in stream to prevent memory usage
+
+Both implements `BuilderInterface`:
+
+- `BuilderInterface::reset(): void`: reset builder data
+- `BuilderInterface::setVersion(string $version): void`: define version of HAR file (default: 1.2)
+- `BuilderInterface::setCreator(string $creator): void`: set creator entity
+- `BuilderInterface::setBrowser(string $browser): void`: set browser entity
+- `BuilderInterface::addPage(Page ...$page): void`: add a page entity (or multiple pages)
+- `BuilderInterface::addEntry(Entry ...$entry): void`: add an entry entity (or multiple entries)
+- `BuilderInterface::setComment(?string $comment): void`: define comment of HAR file
+
+For stream builder, the constructor attempt a valid resource (writeable and seekable).
+
+For standard builder, the constructor accept an HAR file, for example, complete an existent HAR.
