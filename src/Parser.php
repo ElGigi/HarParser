@@ -17,10 +17,6 @@ use RuntimeException;
 
 class Parser
 {
-    public function __construct()
-    {
-    }
-
     /**
      * Parse HAR content.
      *

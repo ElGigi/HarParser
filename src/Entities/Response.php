@@ -126,36 +126,6 @@ class Response extends Message
     }
 
     /**
-     * Get HTTP version.
-     *
-     * @return string
-     */
-    public function getHttpVersion(): string
-    {
-        return $this->httpVersion;
-    }
-
-    /**
-     * Get cookies.
-     *
-     * @return array
-     */
-    public function getCookies(): array
-    {
-        return $this->cookies;
-    }
-
-    /**
-     * Get headers.
-     *
-     * @return array
-     */
-    public function getHeaders(): array
-    {
-        return $this->headers;
-    }
-
-    /**
      * Get content.
      *
      * @return Content
@@ -173,35 +143,5 @@ class Response extends Message
     public function getRedirectUrl(): string
     {
         return $this->redirectURL;
-    }
-
-    /**
-     * Get headers size.
-     *
-     * @return int
-     */
-    public function getHeadersSize(): int
-    {
-        return $this->headersSize;
-    }
-
-    /**
-     * Get body size.
-     *
-     * @return int
-     */
-    public function getBodySize(): int
-    {
-        return $this->bodySize;
-    }
-
-    /**
-     * Get comment.
-     *
-     * @return string|null
-     */
-    public function getComment(): ?string
-    {
-        return $this->comment;
     }
 }
