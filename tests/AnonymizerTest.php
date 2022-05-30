@@ -347,7 +347,7 @@ class AnonymizerTest extends TestCase
     public function testAnonymizeContent()
     {
         $anonymizer = new Anonymizer();
-        $anonymizer->addContentToRedact(['text' => '**']);
+        $anonymizer->addContentToRedact(['/text/i' => '**']);
 
         $content = new Content(
             size: 22,
