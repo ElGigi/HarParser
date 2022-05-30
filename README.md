@@ -120,11 +120,11 @@ class Anonymizer
     /**
      * Add content to redact.
      *
-     * @param array $contents
+     * @param array $regexes
      *
      * @return void
      */
-    public function addContentToRedact(array $contents): void;
+    public function addContentToRedact(array $regexes): void;
 
     /**
      * Add callback.

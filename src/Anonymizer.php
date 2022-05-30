@@ -114,13 +114,13 @@ class Anonymizer
     /**
      * Add content to redact.
      *
-     * @param array $contents
+     * @param array $regexes
      *
      * @return void
      */
-    public function addContentToRedact(array $contents): void
+    public function addContentToRedact(array $regexes): void
     {
-        $this->contents = array_replace($this->contents, $contents);
+        $this->contents = array_replace($this->contents, $regexes);
     }
 
     /**
@@ -456,7 +456,7 @@ class Anonymizer
             }
 
             $length = strlen($text);
-            $text = str_replace(array_keys($this->contents), array_values($this->contents), $text);
+            $text = preg_replace(array_keys($this->contents), array_values($this->contents), $text);
             $adjustSize = strlen($text) - $length;
 
             if ($content->getEncoding() === 'base64') {
