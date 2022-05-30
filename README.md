@@ -71,3 +71,78 @@ Both implements `BuilderInterface`:
 For stream builder, the constructor attempt a valid resource (writeable and seekable).
 
 For standard builder, the constructor accept an HAR file, for example, complete an existent HAR.
+
+## Anonymize HAR
+
+In some cases, like unit tests, you need to anonymize your HAR file.
+
+The `Anonymizer` class it's do for that!
+
+```php
+class Anonymizer
+{
+    /**
+     * Add header to redact.
+     *
+     * @param string ...$regex
+     *
+     * @return void
+     */
+    public function addHeaderToRedact(string ...$regex): void;
+
+    /**
+     * Add query string to redact.
+     *
+     * @param string ...$regex
+     *
+     * @return void
+     */
+    public function addQueryStringToRedact(string ...$regex): void;
+
+    /**
+     * Add post data to redact.
+     *
+     * @param string ...$regex
+     *
+     * @return void
+     */
+    public function addPostDataToRedact(string ...$regex): void;
+
+    /**
+     * Add accepted mime.
+     *
+     * @param string ...$mime
+     *
+     * @return void
+     */
+    public function addAcceptedMime(string ...$mime): void;
+
+    /**
+     * Add content to redact.
+     *
+     * @param array $contents
+     *
+     * @return void
+     */
+    public function addContentToRedact(array $contents): void;
+
+    /**
+     * Add callback.
+     *
+     * @param callable ...$callback
+     *
+     * @return void
+     */
+    public function addCallback(callable ...$callback): void;
+
+    /**
+     * Anonymize HAR file.
+     *
+     * @param Log $log
+     *
+     * @return Log
+     * @throws InvalidArgumentException
+     */
+    public function anonymize(Log $log): Log;
+}
+```

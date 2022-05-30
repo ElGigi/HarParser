@@ -12,6 +12,7 @@ namespace ElGigi\HarParser;
 
 use ElGigi\HarParser\Entities\Content;
 use ElGigi\HarParser\Entities\Cookie;
+use ElGigi\HarParser\Entities\EntityInterface;
 use ElGigi\HarParser\Entities\Entry;
 use ElGigi\HarParser\Entities\Header;
 use ElGigi\HarParser\Entities\Log;
@@ -60,6 +61,7 @@ class Anonymizer
         'application/json',
     ];
     protected array $contents = [];
+    protected array $callbacks = [];
 
     /**
      * Add header to redact.
@@ -122,6 +124,35 @@ class Anonymizer
     }
 
     /**
+     * Add callback.
+     *
+     * @param callable ...$callback
+     *
+     * @return void
+     */
+    public function addCallback(callable ...$callback): void
+    {
+        array_push($this->callbacks, ...$callback);
+    }
+
+    /**
+     * Call callback.
+     *
+     * @template T
+     * @param T $entity
+     *
+     * @return T
+     */
+    protected function callCallback(EntityInterface $entity): EntityInterface
+    {
+        foreach ($this->callbacks as $callback) {
+            $entity = $callback($entity);
+        }
+
+        return $entity;
+    }
+
+    /**
      * Anonymize HAR file.
      *
      * @param Log $log
@@ -131,7 +162,7 @@ class Anonymizer
      */
     public function anonymize(Log $log): Log
     {
-        return new Log(
+        $log = new Log(
             version: $log->getVersion(),
             creator: $log->getCreator(),
             browser: $log->getBrowser(),
@@ -142,6 +173,8 @@ class Anonymizer
             ),
             comment: $log->getComment(),
         );
+
+        return $this->callCallback($log);
     }
 
     /**
@@ -154,7 +187,7 @@ class Anonymizer
      */
     public function anonymizeEntry(Entry $entry): Entry
     {
-        return new Entry(
+        $entry = new Entry(
             pageref: $entry->getPageref(),
             startedDateTime: $entry->getStartedDateTime(),
             time: $entry->getTime(),
@@ -166,6 +199,8 @@ class Anonymizer
             connection: $entry->getConnection(),
             comment: $entry->getComment(),
         );
+
+        return $this->callCallback($entry);
     }
 
     /**
@@ -181,7 +216,7 @@ class Anonymizer
         $adjustHeadersSize = 0;
         $adjustBodySize = 0;
 
-        return new Request(
+        $request = new Request(
             method: $request->getMethod(),
             url: $request->getUrl(),
             httpVersion: $request->getHttpVersion(),
@@ -202,6 +237,8 @@ class Anonymizer
             bodySize: ($size = $request->getBodySize()) > 0 ? $size : $size + $adjustBodySize,
             comment: $request->getComment(),
         );
+
+        return $this->callCallback($request);
     }
 
     /**
@@ -217,7 +254,7 @@ class Anonymizer
         $adjustSize = 0;
         $adjustBodySize = 0;
 
-        return new Response(
+        $response = new Response(
             status: $response->getStatus(),
             statusText: $response->getStatusText(),
             httpVersion: $response->getHttpVersion(),
@@ -235,6 +272,8 @@ class Anonymizer
             bodySize: ($size = $response->getBodySize()) > 0 ? $size : $size + $adjustBodySize,
             comment: $response->getComment(),
         );
+
+        return $this->callCallback($response);
     }
 
     /**
@@ -254,14 +293,15 @@ class Anonymizer
 
             $adjustSize = strlen(static::REDACTED_TEXT) - strlen($header->getValue());
 
-            return new Header(
+            $header = new Header(
                 name: $header->getName(),
                 value: static::REDACTED_TEXT,
                 comment: $header->getComment(),
             );
+            break;
         }
 
-        return $header;
+        return $this->callCallback($header);
     }
 
     /**
@@ -281,14 +321,15 @@ class Anonymizer
 
             $adjustSize = strlen(static::REDACTED_TEXT) - strlen($queryString->getValue());
 
-            return new QueryString(
+            $queryString = new QueryString(
                 name: $queryString->getName(),
                 value: static::REDACTED_TEXT,
                 comment: $queryString->getComment(),
             );
+            break;
         }
 
-        return $queryString;
+        return $this->callCallback($queryString);
     }
 
     /**
@@ -316,7 +357,7 @@ class Anonymizer
             $text = self::REDACTED_TEXT;
         }
 
-        return new PostData(
+        $postData = new PostData(
             mimeType: $postData->getMimeType(),
             params: array_map(
                 fn(Param $param) => $this->anonymizePostDataParam($param),
@@ -325,6 +366,8 @@ class Anonymizer
             text: $text,
             comment: $postData->getComment(),
         );
+
+        return $this->callCallback($postData);
     }
 
     /**
@@ -341,16 +384,17 @@ class Anonymizer
                 continue;
             }
 
-            return new Param(
+            $param = new Param(
                 name: $param->getName(),
                 value: static::REDACTED_TEXT,
                 fileName: $param->getFileName(),
                 contentType: $param->getContentType(),
                 comment: $param->getComment(),
             );
+            break;
         }
 
-        return $param;
+        return $this->callCallback($param);
     }
 
     /**
@@ -365,7 +409,7 @@ class Anonymizer
     {
         $adjustSize = strlen(static::REDACTED_TEXT) - strlen($cookie->getValue());
 
-        return new Cookie(
+        $cookie = new Cookie(
             name: $cookie->getName(),
             value: static::REDACTED_TEXT,
             path: $cookie->getPath(),
@@ -376,6 +420,8 @@ class Anonymizer
             sameSite: $cookie->getSameSite(),
             comment: $cookie->getComment(),
         );
+
+        return $this->callCallback($cookie);
     }
 
     /**
@@ -417,7 +463,7 @@ class Anonymizer
                 $text = base64_encode($text);
             }
 
-            return new Content(
+            $content = new Content(
                 size: strlen($text),
                 compression: $content->getCompression(),
                 mimeType: $content->getMimeType(),
@@ -425,8 +471,9 @@ class Anonymizer
                 encoding: $content->getEncoding(),
                 comment: $content->getComment(),
             );
+            break;
         }
 
-        return $content;
+        return $this->callCallback($content);
     }
 }
