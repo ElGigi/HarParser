@@ -23,13 +23,30 @@ class Entry implements EntityInterface
         protected DateTimeImmutable $startedDateTime,
         protected float $time,
         protected Request $request,
-        protected Response $response,
+        protected ?Response $response,
         protected array $cache,
         protected Timings $timings,
         protected ?string $serverIPAddress,
         protected ?string $connection = null,
         protected ?string $comment = null,
     ) {
+        // Set bad response
+        $this->response ??= new Response(
+            status: 0,
+            statusText: '',
+            httpVersion: '',
+            cookies: [],
+            headers: [],
+            content: new Content(
+                size: 0,
+                compression: null,
+                mimeType: 'x-unknown',
+                text: '',
+            ),
+            redirectURL: '',
+            headersSize: -1,
+            bodySize: -1,
+        );
     }
 
     /**
