@@ -71,7 +71,7 @@ class Log implements EntityInterface
                     'creator' => $this->creator->getArrayCopy(),
                     'browser' => $this->browser?->getArrayCopy(),
                     'pages' => array_map(fn(Page $page) => $page->getArrayCopy(), $this->pages) ?: null,
-                    'entries' => array_map(fn(Entry $entry) => $entry->getArrayCopy(), $this->entries) ?: null,
+                    'entries' => array_map(fn(Entry $entry) => $entry->getArrayCopy(), $this->entries),
                     'comment' => $this->comment,
                 ],
                 fn($value) => null !== $value
