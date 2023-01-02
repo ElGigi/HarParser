@@ -2,7 +2,7 @@
 
 [![Latest Version](https://img.shields.io/packagist/v/elgigi/har-parser.svg?style=flat-square)](https://github.com/ElGigi/HarParser/releases)
 [![Software license](https://img.shields.io/github/license/ElGigi/HarParser.svg?style=flat-square)](https://github.com/ElGigi/HarParser/blob/main/LICENSE)
-[![Build Status](https://img.shields.io/github/workflow/status/ElGigi/HarParser/Tests/main.svg?style=flat-square)](https://github.com/ElGigi/HarParser/actions/workflows/tests.yml?query=branch%3Amain)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/ElGigi/HarParser/tests.yml?branch=main&style=flat-square)](https://github.com/ElGigi/HarParser/actions/workflows/tests.yml?query=branch%3Amain)
 [![Quality Grade](https://img.shields.io/codacy/grade/0447a4290de744dc81a7e2cf9891a47d/main.svg?style=flat-square)](https://app.codacy.com/gh/ElGigi/HarParser)
 [![Total Downloads](https://img.shields.io/packagist/dt/elgigi/har-parser.svg?style=flat-square)](https://packagist.org/packages/elgigi/har-parser)
 
