@@ -455,16 +455,16 @@ class Anonymizer
                 $text = base64_decode($text);
             }
 
-            $length = strlen($text);
-            $text = preg_replace(array_keys($this->contents), array_values($this->contents), $text);
-            $adjustSize = strlen($text) - $length;
+            $length = strlen($text ?? '');
+            $text = preg_replace(array_keys($this->contents), array_values($this->contents), $text ?? '');
+            $adjustSize = strlen($text ?? '') - $length;
 
             if ($content->getEncoding() === 'base64') {
                 $text = base64_encode($text);
             }
 
             $content = new Content(
-                size: strlen($text),
+                size: strlen($text ?? ''),
                 compression: $content->getCompression(),
                 mimeType: $content->getMimeType(),
                 text: $text,

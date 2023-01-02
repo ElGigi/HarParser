@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file. This projec
 to [Semantic Versioning] (http://semver.org/). For change log format,
 use [Keep a Changelog] (http://keepachangelog.com/).
 
+## [1.0.0] - 2023-01-02
+
+### Fixed
+
+- Deprecated usage of null instead of string with PHP 8.2 and functions: `strlen()`, `preg_replace()`
+
 ## [1.0.0-beta6] - 2022-11-29
 
 ### Fixed
