@@ -44,7 +44,7 @@ class CacheTest extends TestCase
                     'hitCount' => 3,
                 ],
                 'expected' => [
-                    'lastAccess' => '2022-02-18T00:00:00.000+00:00',
+                    'lastAccess' => (new DateTime('2022-02-18T00:00:00.000+00:00'))->format(Log::DATE_FORMAT),
                     'eTag' => 'Foo',
                     'hitCount' => 3,
                 ],
