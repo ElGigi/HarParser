@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 class HeaderTest extends TestCase
 {
-    public function loadProvider(): array
+    public static function loadProvider(): array
     {
         return [
             [

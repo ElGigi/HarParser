@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 
 class CacheTest extends TestCase
 {
-    public function loadProvider(): array
+    public static function loadProvider(): array
     {
         return [
             [

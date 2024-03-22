@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 class BrowserTest extends TestCase
 {
-    public function loadProvider(): array
+    public static function loadProvider(): array
     {
         return [
             [
